@@ -6,5 +6,5 @@ config.make
 compile_commands.json
 obj/
 bin/
-!/tempLinuxProject/
-!/tempMacProject
+!/tempLinuxProject/*
+!/tempMacProject/*
