@@ -1,13 +1,28 @@
 #include "ofApp.h"
+int button;
+//--------------------------------------------------------------
+void ofApp::setup() {
+  button = -1;
+  receiver.setup(PORT);
+}
 
 //--------------------------------------------------------------
-void ofApp::setup() {}
+void ofApp::update() {
+  while (receiver.hasWaitingMessages()) {
+    ofxOscMessage m;
+    receiver.getNextMessage(m);
+    if (m.getAddress() == "/sc/test") {
+      button *= -1;
+    }
+  }
+}
 
 //--------------------------------------------------------------
-void ofApp::update() {}
-
-//--------------------------------------------------------------
-void ofApp::draw() {}
+void ofApp::draw() {
+  if (button == -1) {
+    ofDrawRectangle(100, 100, 100, 100);
+  }
+}
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {}

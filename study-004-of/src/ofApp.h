@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxOsc"
+#include "ofxOsc.h"
 
 #define PORT 12345
 
@@ -23,4 +23,6 @@ public:
   void windowResized(int w, int h);
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
+
+  ofxOscReceiver receiver;
 };
