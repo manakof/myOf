@@ -1,9 +1,14 @@
 #include "ofApp.h"
-int button;
 //--------------------------------------------------------------
 void ofApp::setup() {
-  button = -1;
+
+  sc_value = 0.0;
   receiver.setup(PORT);
+  ::ofSetWindowPosition(0, 0);
+  ::ofSetWindowShape(400, 400);
+  shader.load("shader/shader");
+  shader_w = 300;
+  shader_h = 300;
 }
 
 //--------------------------------------------------------------
@@ -11,17 +16,26 @@ void ofApp::update() {
   while (receiver.hasWaitingMessages()) {
     ofxOscMessage m;
     receiver.getNextMessage(m);
-    if (m.getAddress() == "/sc/test") {
-      button *= -1;
+    //   if (m.getAddress() == "/sc/test") {
+    for (int i = 0; i < m.getNumArgs(); i++) {
+      std::cout << m.getArgAsFloat(i) << std::endl;
+      sc_value = m.getArgAsFloat(i);
     }
+
+    // }
   }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-  if (button == -1) {
-    ofDrawRectangle(100, 100, 100, 100);
-  }
+  shader.begin();
+  shader.setUniform1f("u_tim", ofGetElapsedTimef());
+  shader.setUniform2f("u_mouse", mouseX, mouseY);
+  shader.setUniform2f("u_resolution", shader_w, shader_h);
+
+  shader.setUniform1f("sc_msg", sc_value);
+  ofDrawRectangle(0, 0, shader_w, shader_h);
+  shader.end();
 }
 
 //--------------------------------------------------------------

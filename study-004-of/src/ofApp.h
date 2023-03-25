@@ -25,4 +25,7 @@ public:
   void gotMessage(ofMessage msg);
 
   ofxOscReceiver receiver;
+  ofShader shader;
+  int shader_w, shader_h;
+  float sc_value;
 };
