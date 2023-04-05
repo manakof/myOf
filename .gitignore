@@ -5,6 +5,6 @@ config.make
 *.plist
 compile_commands.json
 obj/
-bin/
+
 !/tempLinuxProject/*
 !/tempMacProject/*
